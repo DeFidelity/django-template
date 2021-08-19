@@ -1,0 +1,66 @@
+{% extends "landing/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-5 col-sm-6">
+      <a href="{% url 'post_list' %}" class="btn btn-light">Go back to feed</a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      {% if post.author.profile.name %}
+          <h5>{{post.author.profile.name}}</h5>
+        {% else %}
+        <h5>{{post.author}}</h5>
+      {% endif %}
+      <p><a class="text-primary" style="text-decoration:none;" href="{% url 'profile' post.author.profile.pk %}">@{{post.author}}</a></p>
+      <small>{{post.created_on}}</small>
+      <p>{{post.body}}</p>
+      {% if request.user == post.author %}
+      <a href="{% url 'post_edit'  post.pk %}" style="color: #333;"><i class="far fa-edit"></i>.</a>
+      <a href="{% url 'post_delete'  post.pk%} " style="color: #333;"><i class="fas fa-trash">.</i></a>
+
+      {% endif %}
+
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-5 col-sm-12 border-bottom">
+        <h5>Add Comment</h5>
+      </div>
+    </div>
+  <div class="row justify-content-center mt-3 mb-5">
+    <div class="col-md-5 col-sm-12">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="d-grid gap-2">
+          <button class="btn btn-success mt-3"  name="button">Add Comment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+      {% for comment in comments %}
+<div class="row justify-content-center mt-3 mb-5">
+  <div class="col-md-5 col-sm-12 border-bottom">
+    {% if comment.author.profile.name %}
+        <h5>{{comment.author.profile.name}}</h5>
+      {% else %}
+      <h5>{{comment.author}}</h5>
+    {% endif %}
+    <p><a class="text-primary" style="text-decoration:none;" href="{% url 'profile' comment.author.profile.pk %}">@{{comment.author}}</a></p>
+    <p><small>{{comment.created_on}}</small></p>
+    <p>{{comment.comment}}</p>
+    {% if request.user == comment.author %}
+    <a href="{% url 'comment_delete' post.pk comment.pk%} " style="color: #333;"><i class="fas fa-trash"></i>.</a>
+    {% endif %}
+      <hr>
+  </div>
+</div>
+      {% endfor %}
+{% endblock content %}

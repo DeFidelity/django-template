@@ -139,6 +139,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (Path(BASE_DIR,'static'),)
 
+
+MEDIA_URL ='/media/'
+MEDIA_ROOT = Path(BASE_DIR,'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -146,6 +149,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'post_list'
 ACCOUNT_EMAIL_REQUIRED = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
