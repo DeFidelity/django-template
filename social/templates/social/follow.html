@@ -1,0 +1,16 @@
+{% if user == request.user %}
+<h1>h</h1>
+{% else %}
+    {% if is_following %}
+        <form action="{% url 'unfollow' profile.pk %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-outline-success" type="submit">Unfollow</button>
+        </form>
+      {% else %}
+      <form action="{% url 'follow' profile.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-success">Follow</button>
+      </form>
+    {% endif %}
+{% endif %}
+</div>

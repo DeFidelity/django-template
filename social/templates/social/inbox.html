@@ -1,0 +1,25 @@
+{% extends "landing/base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 p-5">
+      <h5>Your Conversations</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 p-5">
+      <form class="" action="{% url 'create_thread' %}" method="get">
+        <button type="submit" class="btn btn-light p-3">Start Conversation</button>
+      </form>
+    </div>
+  </div>
+  {% for thread in threads.all %}
+      <div class="row mb-3">
+        <div class="card col-md-8 shadow-md">
+          <h5>@{{ thread.user }}<small> and </small>@{{ thread.receiver }} <i class="far fa-envelope inbox-icon"></i></h5>
+          <a href="{% url 'thread' thread.pk %}" class="stretched-link"></a>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+{% endblock content %}

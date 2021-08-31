@@ -2,7 +2,16 @@ from django.urls import path
 from social.views import (PostListView, PostDetailView,
                           PostEditView, PostDeleteView,
                           CommentDeleteView, ProfileView,
-                          CommentEditView, ProfileEditView,)
+                          CommentEditView, ProfileEditView,
+                          AddFollower, RemoveFollower,
+                          AddLikes,  DislikesView,
+                          UserSearch, FollowersList,
+                          CommentLikeView, CommentDislikesView,
+                          CommentReplyView,PostNotifications,
+                          FollowNotifications,RemoveNotification,
+                          CreateThread,ListThread,
+                          ThreadView,CreateMessage,
+                          ThreadNotification,ExploreView,)
 
 
 urlpatterns = [
@@ -10,8 +19,26 @@ urlpatterns = [
     path('post/<int:pk>/',PostDetailView.as_view(),name='post_detail'),
     path('post/edit/<int:pk>/',PostEditView.as_view(),name='post_edit'),
     path('post/delete/<int:pk>/',PostDeleteView.as_view(),name='post_delete'),
+    path('explore/',ExploreView.as_view(),name='explore'),
+    path('post/<int:pk>/like/',AddLikes.as_view(),name='add_like'),
+    path('post/<int:pk>/dislike/',DislikesView.as_view(),name='dislike'),
+    path('post/<int:post_pk>/comment/<int:pk>/like/',CommentLikeView.as_view(),name='comment_likes'),
+    path('post/<int:post_pk>/comment/<int:pk>/dislikes/',CommentDislikesView.as_view(),name='comment_dislikes'),
+    path('post/<int:post_pk>/comment/<int:pk>/reply/',CommentReplyView.as_view(),name='comment_reply'),
+    path('post/<int:post_pk>/comment/delete/<int:pk>/',CommentDeleteView.as_view(),name='comment_delete'),
     path('edit_comment/<int:pk>/',CommentEditView.as_view(),name='comment_edit'),
-    path('post/<int:post_pk>/comment/delete/<int:pk>',CommentDeleteView.as_view(),name='comment_delete'),
     path('profile/<int:pk>/', ProfileView.as_view(),name='profile'),
-    path('profile/<int:pk>/edit',ProfileEditView.as_view(),name='profile_edit')
- ]
+    path('profile/<int:pk>/edit/',ProfileEditView.as_view(),name='profile_edit'),
+    path('profile/<int:pk>/followers/',FollowersList.as_view(),name='follower_list'),
+    path('profile/<int:pk>/follow/',AddFollower.as_view(),name='follow'),
+    path('profile/<int:pk>/unfollow/', RemoveFollower.as_view(),name='unfollow'),
+    path('search/',UserSearch.as_view(),name='search'),
+    path('notification/<int:notification_pk>/post/<int:post_pk>/',PostNotifications.as_view(),name='post_notification'),
+    path('notification/<int:notification_pk>/thread/<int:thread_pk>/',ThreadNotification.as_view(),name='thread_notification'),
+    path('notification/<int:notification_pk>/profile/<int:profile_pk>/',FollowNotifications.as_view(),name='follow_notification'),
+    path('notification/<int:pk>/delete',RemoveNotification.as_view(),name='notification-delete'),
+    path('inbox/',ListThread.as_view(),name='inbox'),
+    path('inbox/create_thread',CreateThread.as_view(),name='create_thread'),
+    path('inbox/<int:pk>/',ThreadView.as_view(),name='thread'),
+    path('inbox/<int:pk>/create_message',CreateMessage.as_view(),name='create_message'),
+]

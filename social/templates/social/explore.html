@@ -1,25 +1,28 @@
 {% extends "landing/base.html" %}
 {% load crispy_forms_tags %}
-
 {% block content %}
   <div class="container">
-    <div class="row justify-content-center mt-3">
-      <div class="col-md-5 col-sm-12 border-bottom">
-        <h5>Create new post</h5>
+    <div class="row">
+      <div class="col-md-5 col-sm-6">
+        <a href="{% url 'post_list' %}" class="btn btn-light">Back to feed</a>
       </div>
     </div>
-    <div class="row justify-content-center mt-3 mb-5">
-      <div class="col-md-5 col-sm-12 border-bottom">
-        <form method="POST" enctype="multipart/form-data">
+    <div class="row justify-content-center">
+      <div class="col-md-5 col-sm-6">
+        {% if tags %}
+            <h3>Explore #{{tag.name}} posts</h3>
+            <p>most recent posts on #{{ tag.name }}</p>
+        {% else %}
+          <h3>Explore Peoples recent posts</h3>
+          <p>In this explore page, you can find posts form users you aint even following</p>
+        {% endif %}
+        <form class="mb-5" method="POST">
           {% csrf_token %}
-          {{ form | crispy }}
-          <div class="d-grid gap-2">
-            <button class="btn btn-success mt-3"  name="button">Post</button>
-          </div>
+          {{ explore_form | crispy }}
         </form>
       </div>
     </div>
-      {% for post in posts %}
+{% for post in posts %}
     <div class="row justify-content-center mt-3">
       <div class="col-md-5 col-sm-12 border-bottom">
         <div class="">
@@ -70,11 +73,10 @@
           </button>
           </form>
 
-          <!-- <span onclick="shareToggle('{{post.pk}}')"><i class="far fa-share-square share-btn">🔄</i></span> -->
+          <!-- <span onclick="shareToggle('{{post.pk}}')"><i class="far fa-share-square share-btn"></i></span> -->
         </div>
       </div>
     </div>
-    {% endfor %}
+  {% endfor %}
   </div>
-
 {% endblock content %}

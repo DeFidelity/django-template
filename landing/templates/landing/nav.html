@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <div class="container">
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
@@ -13,23 +14,31 @@
     ><i class="fas fa-comment"></i>Socialize</a>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+        <a href="{% url 'explore' %}"><i><far fa-spark/i></a></li>
       </ul>
-      <form class="d-flex">
+      <form class="d-flex" method="GET" action="{% url 'search' %}">
         <div class="input-group">
           <span class="input-group-text" id="basic-addon1">@</span>
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="Username & Posts" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query}}">
+          <button type="submit" class="remove-default-btn"><i class="fas fa-search"></i></button>
         </div>
       </form>
       {% if user.is_authenticated %}
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="fas fa-user"></i></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'profile' user.profile.pk %}">Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' request.user.profile.pk %}">Profile</a></li>
               <li><a class="dropdown-item" href="{% url 'account_logout'%}">Logout</a></li>
             </ul>
           </div>
+          <div class="nav-item inbox-icon-container">
+            <a href="{% url 'inbox'%}" class="inbox-icon"><i class="far fa-papper-plain"></i></a>
+          </div>
+          <div class="nav-item">
+            {% show_notification %}
+          </div>
       {% endif %}
-
      </div>
     </div>
 </nav>
