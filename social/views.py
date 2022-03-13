@@ -33,8 +33,8 @@ class PostListView(LoginRequiredMixin, View):
         # posts = Post.objects.filter(
         #     author__profile__followers__in=[logged_in_user]
         # ).order_by('-created_on')
-        
-        posts = Post.objects.filter(Q(author__profile__followers__in=[logged_in_user]) | Q(author=logged_in_user))
+        admin = User.objects.filter(is_superuser=True)
+        posts = Post.objects.filter(Q(author__profile__followers__in=[logged_in_user]) | Q(author=logged_in_user) | Q(author=admin))
         
         
         form = PostForm(request.POST,request.FILES)
