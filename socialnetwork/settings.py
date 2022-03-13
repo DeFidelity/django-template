@@ -24,9 +24,9 @@ TEMPLATE_DIR = Path(BASE_DIR,'templates')
 SECRET_KEY = 'django-insecure-49wi0ty#vcg=@optkeizt46+3q^#ua-s&gnz&agwus@w!tlr#y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['inorg.herokuapp','127.0.0','localhost']
 
 
 # Application definition
@@ -136,6 +136,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = Path(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [Path(BASE_DIR,'static'),]
 
