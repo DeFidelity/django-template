@@ -24,7 +24,7 @@ TEMPLATE_DIR = Path(BASE_DIR,'templates')
 SECRET_KEY = 'django-insecure-49wi0ty#vcg=@optkeizt46+3q^#ua-s&gnz&agwus@w!tlr#y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['inorg.herokuapp.com','127.0.0.1' ,'localhost']
 
