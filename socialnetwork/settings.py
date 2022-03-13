@@ -154,3 +154,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'post_list'
 ACCOUNT_EMAIL_REQUIRED = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Allauth 
+
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
