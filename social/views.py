@@ -18,7 +18,12 @@ class PostListView(LoginRequiredMixin, View):
         # posts = Post.objects.filter(
         #     author__profile__followers__in=[logged_in_user]
         # ).order_by('-created_on')
-        posts = Post.objects.filter(Q(author__profile__followers__in=[logged_in_user]) | Q(author=logged_in_user))
+        if request.user.is_superuser:
+            posts = Post.objects.all().order_by('-created_on')
+        
+        else:
+            admin = User.objects.filter(is_superuser=True)
+            posts = Post.objects.filter(Q(author__profile__followers__in=[logged_in_user]) | Q(author=logged_in_user) | Q(author=admin))
         
         form = PostForm()
         share_form = ShareForm()
