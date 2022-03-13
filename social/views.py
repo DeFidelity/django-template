@@ -15,9 +15,11 @@ from django.views.generic.edit import UpdateView, DeleteView
 class PostListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         logged_in_user = request.user
-        posts = Post.objects.filter(
-            author__profile__followers__in=[logged_in_user]
-        ).order_by('-created_on')
+        # posts = Post.objects.filter(
+        #     author__profile__followers__in=[logged_in_user]
+        # ).order_by('-created_on')
+        posts = Post.objects.filter(Q(author__profile__followers__in=[logged_in_user]) | Q(author=logged_in_user))
+        
         form = PostForm()
         share_form = ShareForm()
         context = {'posts':posts,
@@ -28,9 +30,13 @@ class PostListView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         logged_in_user = request.user
-        posts = Post.objects.filter(
-            author__profile__followers__in=[logged_in_user]
-        ).order_by('-created_on')
+        # posts = Post.objects.filter(
+        #     author__profile__followers__in=[logged_in_user]
+        # ).order_by('-created_on')
+        
+        posts = Post.objects.filter(Q(author__profile__followers__in=[logged_in_user]) | Q(author=logged_in_user))
+        
+        
         form = PostForm(request.POST,request.FILES)
         share_form = ShareForm()
         files = request.FILES.getlist('image')

@@ -1,6 +1,7 @@
 {% extends "landing/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
+{% block head%} InOrg| {{post.author}} post.{% endblock head%}
 {% block content %}
 <div class="container">
   <div class="row mt-5">
@@ -26,7 +27,7 @@
       </div>
       <small>{{post.created_on}}</small>
       <div class="body">
-        <p>{{post.body}}</p>
+        <article>{{post.body}}</article>
       </div>
       {% if post.image.count > 0 %}
         <div class="row">
