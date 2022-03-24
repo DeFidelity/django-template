@@ -1,1 +1,3 @@
 __pycache__/
+socialnetwork/.env
+db.sqlite3
