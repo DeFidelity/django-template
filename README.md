@@ -5,6 +5,7 @@ A functionality focused social networking site, with concentration on how it wor
 
 This project is crud focused with implementation of crud in various aspect of it, almost all it's functionalities are crud based and it uses Django generic class based views for it's views [ `from django.views import Views` ] which makes the work more plain, redable and makes it's assessing method super clear.
 
+### Functionalities
 The project houses various functionalities with the base of it being:
 
 - Sharing a post
